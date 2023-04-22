@@ -69,7 +69,6 @@ def final(playerwinsy,botwinsy,ronday):
         print(f" tu elegiste {player} y el bot {bot}")
         print("Empate")
 
-
     else:
         playerwins = playerwins + 1
         print("*************************************")
@@ -78,7 +77,6 @@ def final(playerwinsy,botwinsy,ronday):
         print(f" Victorias = {playerwins}   Derrotas = {botwins}")
         print(f" tu elegiste {player} y el bot {bot}")
         print("Ganaste")
-    
     ronda = ronda + 1
 
         
