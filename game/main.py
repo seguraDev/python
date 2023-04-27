@@ -1,93 +1,76 @@
 import random
 
-# chois = ["Piedra", "Papel","Tijera" ] 
-# playerwins = 0
-# botwins = 0
-# ronda = 1
 
+def choose_options():
+  options = ('piedra', 'papel', 'tijera')
+  user_option = input('piedra, papel o tijera => ')
+  user_option = user_option.lower()
 
-# while ronda < 11:    
-#     Randomizer = random.randint(0, 2)
-#     bot = chois[Randomizer]
-#     player = chois[int(input("Que eliges 0 Piedra, 1 Papel o 2 Tijera --> "))]
-    
-#     if player == chois[0] and bot == chois[1] or player == chois[1] and bot == chois[2] or player == chois[2] and bot == chois[0]:
-#         botwins = botwins + 1
-#         print("*************************************")
-#         print(f"           ROUND {ronda}            ")
-#         print("*************************************")
-#         print(f" Victorias = {playerwins}   Derrotas = {botwins}")
-#         print(f" tu elegiste {player} y el bot {bot}")
-#         print("Perdiste")
+  if not user_option in options:
+    print('esa opcion no es valida')
+    # continue
+    return None, None
 
-        
-#     elif player == bot:
-#         print("*************************************")
-#         print(f"           ROUND {ronda}            ")
-#         print("*************************************")
-#         print(f" Victorias = {playerwins}   Derrotas = {botwins}")
-#         print(f" tu elegiste {player} y el bot {bot}")
-#         print("Empate")
+  computer_option = random.choice(options)
 
+  print('User option =>', user_option)
+  print('Computer option =>', computer_option)
+  return user_option, computer_option
 
-#     else:
-#         playerwins = playerwins + 1
-#         print("*************************************")
-#         print(f"           ROUND {ronda}            ")
-#         print("*************************************")
-#         print(f" Victorias = {playerwins}   Derrotas = {botwins}")
-#         print(f" tu elegiste {player} y el bot {bot}")
-#         print("Ganaste")
-#     ronda = ronda + 1
-    
-
-
-def final(playerwinsy,botwinsy,ronday):
-    chois = ["Piedra", "Papel","Tijera" ] 
-    Randomizer = random.randint(0, 2)
-    bot = chois[Randomizer]
-    player = chois[int(input("Que eliges 0 Piedra, 1 Papel o 2 Tijera --> "))]
-    playerwins = playerwinsy
-    botwins = botwinsy
-    ronda = ronday
-    
-    if player == chois[0] and bot == chois[1] or player == chois[1] and bot == chois[2] or player == chois[2] and bot == chois[0]:
-        botwins = botwins + 1
-        print("*************************************")
-        print(f"           ROUND {ronda}            ")
-        print("*************************************")
-        print(f" Victorias = {playerwins}   Derrotas = {botwins}")
-        print(f" tu elegiste {player} y el bot {bot}")
-        print("Perdiste")
-
-        
-    elif player == bot:
-        print("*************************************")
-        print(f"           ROUND {ronda}            ")
-        print("*************************************")
-        print(f" Victorias = {playerwins}   Derrotas = {botwins}")
-        print(f" tu elegiste {player} y el bot {bot}")
-        print("Empate")
-
+def check_rules(user_option, computer_option, user_wins, computer_wins):
+  if user_option == computer_option:
+    print('Empate!')
+  elif user_option == 'piedra':
+    if computer_option == 'tijera':
+      print('piedra gana a tijera')
+      print('user gano!')
+      user_wins += 1
     else:
-        playerwins = playerwins + 1
-        print("*************************************")
-        print(f"           ROUND {ronda}            ")
-        print("*************************************")
-        print(f" Victorias = {playerwins}   Derrotas = {botwins}")
-        print(f" tu elegiste {player} y el bot {bot}")
-        print("Ganaste")
-    ronda = ronda + 1
+      print('Papel gana a piedra')
+      print('computer gano!')
+      computer_wins += 1
+  elif user_option == 'papel':
+    if computer_option == 'piedra':
+      print('papel gana a piedra')
+      print('user gano')
+      user_wins += 1
+    else:
+      print('tijera gana a papel')
+      print('computer gano!')
+      computer_wins += 1
+  elif user_option == 'tijera':
+    if computer_option == 'papel':
+      print('tijera gana a papel')
+      print('user gano!')
+      user_wins += 1
+    else:
+      print('piedra gana a tijera')
+      print('computer gano!')
+      computer_wins += 1
+  return user_wins, computer_wins
 
-        
-    return reinicio(playerwins,botwins,ronda)
+def run_game():
+  computer_wins = 0
+  user_wins = 0  
+  rounds = 1
+  while True:
+    print('*' * 10)
+    print('ROUND', rounds)
+    print('*' * 10)
 
-def reinicio(playerwinsy,botwinsy,ronday  ):
-    playerwins = playerwinsy
-    botwins = botwinsy
-    ronda = ronday
-    return final(playerwins,botwins,ronda)
+    print('computer_wins', computer_wins)
+    print('user_wins', user_wins)
+    rounds += 1
 
+    user_option, computer_option = choose_options()
+    user_wins, computer_wins = check_rules(user_option, computer_option, user_wins, computer_wins)
 
+    if computer_wins == 2:
+      print('El ganador es la computadora')
+      break
 
-reinicio(0,0,1)
+    if user_wins == 2:
+      print('El ganador es el usuario')
+      break
+
+run_game()
